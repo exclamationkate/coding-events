@@ -1,8 +1,6 @@
 package org.launchcode.codingevents.models;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Objects;
 
 /**
@@ -24,11 +22,21 @@ public class Event {
     @Email(message = "Invalid email. Try again.")
     private String contactEmail;
 
-    public Event(String name, String description, String contactEmail) {
+    @NotBlank(message = "Location is required.")
+    @NotNull(message = "Location cannot be null.")
+    private String location;
+
+    @NotNull(message = "Please enter a valid number.")
+    @Min(value = 1, message = "Must be 1 or more maximum attendees.")
+    private Integer maxAttendees;
+
+    public Event(String name, String description, String contactEmail, String location, Integer maxAttendees) {
         this();
         this.name = name;
         this.description = description;
         this.contactEmail = contactEmail;
+        this.location = location;
+        this.maxAttendees = maxAttendees;
     }
 
     public Event() {
@@ -58,6 +66,22 @@ public class Event {
 
     public void setContactEmail(String contactEmail) {
         this.contactEmail = contactEmail;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public Integer getMaxAttendees() {
+        return maxAttendees;
+    }
+
+    public void setMaxAttendees(Integer maxAttendees) {
+        this.maxAttendees = maxAttendees;
     }
 
     public int getId() {
